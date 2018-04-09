@@ -100,7 +100,7 @@ RUN apt-get update \
     #&& docker-php-ext-install ldap \
 
 # Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 # Install extension using pecl
 # Notice: if pecl install get error
@@ -108,7 +108,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 # or
 #    `Package "xxx" does not have REST xml available`
 # Please turn on proxy (The proxy IP may be docker host IP or others):
-RUN pear config-set http_proxy http://10.0.75.1:1080
+#RUN pear config-set http_proxy http://10.0.75.1:1080
 
 RUN pecl install redis-3.1.4 \
     && docker-php-ext-enable redis \
