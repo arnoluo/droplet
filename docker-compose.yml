@@ -1,0 +1,41 @@
+nginx:
+  image: nginx:alpine
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - ./src/:/var/www/:rw
+    - ./sys/config/nginx/conf.d:/etc/nginx/conf.d/:ro
+    - ./sys/config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./sys/log/nginx/:/var/log/nginx/:rw
+  links:
+    - php72:fpm
+
+php72:
+  build: ./sys/image/php72/
+  expose:
+    - "9000:9000"
+  volumes:
+    - ./src/:/var/www/:rw
+    - ./sys/config/php/php.ini:/usr/local/etc/php/php.ini:ro
+    - ./sys/config/php/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+    - ./sys/log/php-fpm/:/var/log/php-fpm/:rw
+  links:
+    - mysql:mysql
+    - redis:redis
+
+mysql:
+  image: mysql:latest
+  ports:
+    - "3308:3306"
+  volumes:
+    - ./sys/config/mysql/my.cnf:/etc/mysql/my.cnf:ro
+    - ./mysql/:/var/lib/mysql/:rw
+    - ./sys/log/mysql/:/var/log/mysql/:rw
+  environment:
+    MYSQL_ROOT_PASSWORD: "123456"
+
+redis:
+  image: redis:latest
+  ports:
+    - "6379:6379"
