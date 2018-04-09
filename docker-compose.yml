@@ -14,7 +14,7 @@ nginx:
 php72:
   build: ./sys/image/php72/
   expose:
-    - "9000:9000"
+    - "9000"
   volumes:
     - ./src/:/var/www/:rw
     - ./sys/config/php/php.ini:/usr/local/etc/php/php.ini:ro
