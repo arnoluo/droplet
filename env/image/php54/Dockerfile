@@ -1,8 +1,7 @@
-FROM php:7.2-fpm
-WORKDIR /var/www
+FROM php:5.4-fpm
 
 # For inland
-#COPY ./sources.list.stretch /etc/apt/sources.list
+#COPY ./sources.list.jessie /etc/apt/sources.list
 
 # Extensions: ctype, dom, fileinfo, ftp, hash, iconv, json, pdo, pdo_sqlite, session,
 # tokenizer, simplexml, xml, xmlreader, xmlwriter and phar are bundled and compiled into
@@ -45,8 +44,8 @@ RUN apt-get update \
     && docker-php-ext-install shmop \
     && docker-php-ext-install sysvmsg \
     && docker-php-ext-install sysvsem \
-    && docker-php-ext-install sysvshm \
-    && docker-php-ext-install opcache
+    && docker-php-ext-install sysvshm
+    #&& docker-php-ext-install opcache
     #&& docker-php-ext-install pdo_firebird \
     #&& docker-php-ext-install pdo_dblib \
     #&& docker-php-ext-install pdo_oci \
@@ -101,7 +100,7 @@ RUN apt-get update \
     #&& docker-php-ext-install ldap \
 
 # Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
+#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
 
 # Install extension using pecl
 # Notice: if pecl install get error
@@ -109,12 +108,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 # or
 #    `Package "xxx" does not have REST xml available`
 # Please turn on proxy (The proxy IP may be docker host IP or others):
-#RUN pear config-set http_proxy http://10.0.75.1:1080
+RUN pear config-set http_proxy http://10.0.75.1:1080
 
 RUN pecl install redis-3.1.4 \
     && docker-php-ext-enable redis \
     && :\
-    && pecl install xdebug-2.6.0alpha1 \
+    && pecl install xdebug-2.4.1 \
     && docker-php-ext-enable xdebug \
     && :\
     && apt-get install -y libmagickwand-dev \
@@ -122,5 +121,19 @@ RUN pecl install redis-3.1.4 \
     && docker-php-ext-enable imagick \
     && :\
     && apt-get install -y libmemcached-dev zlib1g-dev \
-    && pecl install memcached-3.0.4 \
+    && pecl install memcached-2.2.0 \
     && docker-php-ext-enable memcached
+
+# Install extension from source
+#
+# However, we can also use pecl to install pecl extensions:
+#   && pecl install zendopcache-7.0.5 \
+#   && docker-php-ext-enable opcache \
+# Here is only an example showing how to install an extension from source.
+COPY ./zendopcache-7.0.5.tgz /tmp/
+RUN cd /tmp/ \
+        && tar -xf zendopcache-7.0.5.tgz \
+		&& rm zendopcache-7.0.5.tgz \
+        && ( cd zendopcache-7.0.5 && phpize && ./configure && make && make install ) \
+        && rm -r zendopcache-7.0.5 \
+        && docker-php-ext-enable opcache
