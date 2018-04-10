@@ -12,7 +12,7 @@ nginx:
     - php72:fpm
 
 php72:
-  build: ./env/image/php72/
+  build: ./env/image/php/
   expose:
     - "9000"
   volumes:
@@ -27,10 +27,10 @@ php72:
 mysql:
   image: mysql:latest
   ports:
-    - "3308:3306"
+    - "3306:3306"
   volumes:
     - ./env/config/mysql/my.cnf:/etc/mysql/my.cnf:ro
-    - ./mysql/:/var/lib/mysql/:rw
+    - ./env/image/mysql/:/var/lib/mysql/:rw
     - ./env/log/mysql/:/var/log/mysql/:rw
   environment:
     MYSQL_ROOT_PASSWORD: "123456"
