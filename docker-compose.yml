@@ -21,9 +21,8 @@ php:
     - ./env/config/php/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf:rw
     - ./env/log/php-fpm/:/var/log/php-fpm/:rw
   links:
-    - mysql:mysql
+    - postgres:postgres
     - redis:redis
-    - 
 
 postgres:
   image: postgres:latest
