@@ -3,3 +3,7 @@
 /.vagrant
 .env
 .DS_Store
+
+/env/log/mysql/
+/env/log/nginx/
+/env/log/php-fpm/

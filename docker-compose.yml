@@ -9,9 +9,9 @@ nginx:
     - ./env/config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     - ./env/log/nginx/:/var/log/nginx/:rw
   links:
-    - php72:fpm
+    - php:fpm
 
-php72:
+php:
   build: ./env/image/php/
   expose:
     - "9000"
@@ -23,17 +23,28 @@ php72:
   links:
     - mysql:mysql
     - redis:redis
+    - 
 
-mysql:
-  image: mysql:latest
+postgres:
+  image: postgres:latest
   ports:
-    - "3306:3306"
+    - "5432:5432"
   volumes:
-    - ./env/config/mysql/my.cnf:/etc/mysql/my.cnf:ro
-    - ./env/image/mysql/:/var/lib/mysql/:rw
-    - ./env/log/mysql/:/var/log/mysql/:rw
+    - ./env/config/pgsql/:/usr/share/postgresql/:rw
+    - ./env/data/pgsql/:/var/lib/postgresql/data/:rw
   environment:
-    MYSQL_ROOT_PASSWORD: "123456"
+    POSTGRES_PASSWORD: example
+
+# mysql:
+#   image: mysql:latest
+#   ports:
+#     - "3306:3306"
+#   volumes:
+#     - ./env/config/mysql/my.cnf:/etc/mysql/my.cnf:ro
+#     - ./env/data/mysql/:/var/lib/mysql/:rw
+#     - ./env/log/mysql/:/var/log/mysql/:rw
+#   environment:
+#     MYSQL_ROOT_PASSWORD: "123456"
 
 redis:
   image: redis:latest

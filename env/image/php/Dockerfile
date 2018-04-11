@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:fpm
 WORKDIR /var/www
 
 # For inland
@@ -34,6 +34,8 @@ RUN apt-get update \
     && :\
     && docker-php-ext-install zip \
     && docker-php-ext-install pcntl \
+    && docker-php-ext-install pdo_pgsql \
+    && docker-php-ext-install pgsql \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install mbstring \
@@ -51,8 +53,6 @@ RUN apt-get update \
     #&& docker-php-ext-install pdo_dblib \
     #&& docker-php-ext-install pdo_oci \
     #&& docker-php-ext-install pdo_odbc \
-    #&& docker-php-ext-install pdo_pgsql \
-    #&& docker-php-ext-install pgsql \
     #&& docker-php-ext-install oci8 \
     #&& docker-php-ext-install odbc \
     #&& docker-php-ext-install dba \
