@@ -1,11 +1,7 @@
 /.idea
 /.vscode
 /.vagrant
-.env
 .DS_Store
-/env/log/mysql/*
+init.sh
 /env/log/nginx/*
 /env/log/php-fpm/*
-
-/env/data/mysql/*
-/env/data/pgsql/*

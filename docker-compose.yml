@@ -5,8 +5,8 @@ nginx:
     - "443:443"
   volumes:
     - ./src/:/var/www/:rw
-    - ./env/config/nginx/conf.d:/etc/nginx/conf.d/:ro
-    - ./env/config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./config/nginx/conf.d:/etc/nginx/conf.d/:ro
+    - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     - ./env/log/nginx/:/var/log/nginx/:rw
   links:
     - php:fpm
@@ -17,8 +17,8 @@ php:
     - "9000"
   volumes:
     - ./src/:/var/www/:rw
-    - ./env/config/php/php.ini:/usr/local/etc/php/php.ini:ro
-    - ./env/config/php/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+    - ./config/php/php.ini:/usr/local/etc/php/php.ini:ro
+    - ./config/php/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf:rw
     - ./env/log/php-fpm/:/var/log/php-fpm/:rw
   links:
     - postgres:postgres
@@ -30,25 +30,14 @@ postgres:
   ports:
     - "5432:5432"
 #  volumes:
-#    - ./env/config/pgsql/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
-#    - ./env/config/pgsql/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+#    - ./config/pgsql/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+#    - ./config/pgsql/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
 #    - ./env/data/pgsql/:/var/lib/postgresql/data/
   environment:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: example
 
-# mysql:
-#   image: mysql:latest
-#   ports:
-#     - "3306:3306"
-#   volumes:
-#     - ./env/config/mysql/my.cnf:/etc/mysql/my.cnf:ro
-#     - ./env/data/mysql/:/var/lib/mysql/:rw
-#     - ./env/log/mysql/:/var/log/mysql/:rw
-#   environment:
-#     MYSQL_ROOT_PASSWORD: "123456"
-
 redis:
-  image: redis:latest
+  image: redis:alpine
   ports:
     - "6379:6379"
