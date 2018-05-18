@@ -23,6 +23,6 @@ droplet/
 |- docker-compose.yml      # Default Environment startup file, following docker-compose syntax.
 |
 |- init.sh                 # Initialization script, responsible for removing old unused containers
-|                           # and performing some initialization operations on the application, such as migrating the database.
+|                          # and performing some initialization operations on the application, such as migrating the database.
 ```
 
