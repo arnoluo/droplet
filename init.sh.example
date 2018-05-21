@@ -4,7 +4,6 @@
 # Environment initialization commands
 
 docker-compose down
-docker-compose rm
 
 docker-compose up -d
 
@@ -16,6 +15,6 @@ docker-compose exec postgres /bin/sh -c 'psql -U postgres <<EOF
 CREATE DATABASE db;
 \q
 EOF
-&& exit'
+exit'
 
-docker-compose exec php /bin/sh -c 'cd /var/www && composer install && php artisan key:generate && php artisan migrate && exit';
+docker-compose exec php /bin/sh -c 'cd /var/www && composer install && php artisan key:generate && php artisan migrate && exit'
