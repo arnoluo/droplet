@@ -1,3 +1,3 @@
 <?php
-echo 'Site 1<br /><a href="./sqltest.php">sql test</a><br/>';
+echo 'Site 1<br />';
 phpinfo();

@@ -26,3 +26,6 @@ droplet/
 |                          # and performing some initialization operations on the application, such as migrating the database.
 ```
 
+## Replace conf file
+- /config/redis/redis.conf.example -> /config/redis/redis.conf
+- /init.sh.example -> /init.sh

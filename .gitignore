@@ -7,3 +7,6 @@ init.sh
 /config/redis/redis.conf
 /env/log/nginx/*
 /env/log/php-fpm/*
+/src/*
+!/src/http/
+!/src/https/
