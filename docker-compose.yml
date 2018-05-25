@@ -1,8 +1,10 @@
 nginx:
   image: nginx:alpine
+  # 80(http), 443(https) for frontend; 2333 for backend api;
   ports:
     - "80:80"
     - "443:443"
+    - "2333:2333"
   volumes:
     - ./src/:/var/www/:rw
     - ./config/nginx/conf.d:/etc/nginx/conf.d/:ro
@@ -29,10 +31,10 @@ postgres:
   restart: always
   ports:
     - "5432:5432"
-#  volumes:
+  volumes:
+    - ./env/data/pgsql/db.sql:/var/lib/postgresql/db.sql:rw
 #    - ./config/pgsql/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
 #    - ./config/pgsql/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
-#    - ./env/data/pgsql/:/var/lib/postgresql/data/
   environment:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: example
