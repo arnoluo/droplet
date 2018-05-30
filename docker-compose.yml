@@ -1,5 +1,5 @@
 nginx:
-  image: nginx:alpine
+  image: nginx:latest
   # 80(http), 443(https) for frontend; 2333 for backend api;
   ports:
     - "80:80"
@@ -7,7 +7,9 @@ nginx:
     - "2333:2333"
   volumes:
     - ./src/:/var/www/:rw
-    - ./config/nginx/conf.d:/etc/nginx/conf.d/:ro
+    - ./config/nginx/server:/etc/nginx/server/:ro
+    - /etc/letsencrypt/:/etc/letsencrypt/
+    - /var/lib/letsencrypt/:/var/lib/letsencrypt/
     - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     - ./env/log/nginx/:/var/log/nginx/:rw
   links:
