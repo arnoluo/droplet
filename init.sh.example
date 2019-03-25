@@ -1,0 +1,20 @@
+#!/bin/bash
+# Please copy this file to init.sh and make it executable.
+
+# Environment initialization commands
+
+docker-compose down
+
+docker-compose up -d
+
+# Waiting for all services up
+sleep 5
+
+# Some commands, like creating database, install packages, run migration and so on.
+docker-compose exec postgres /bin/sh -c 'psql -U postgres <<EOF
+CREATE DATABASE db;
+\q
+EOF
+exit'
+
+docker-compose exec php /bin/sh -c 'cd /var/www && composer install && php artisan key:generate && php artisan migrate && exit'

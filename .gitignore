@@ -1,0 +1,13 @@
+/.idea
+/.vscode
+/.vagrant
+.DS_Store
+init.sh
+/config/nginx/server/*
+/config/redis/redis.conf
+/env/log/nginx/*
+/env/log/php-fpm/*
+/src/*
+!/src/http/
+!/src/https/
+!*.example
