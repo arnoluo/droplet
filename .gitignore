@@ -11,3 +11,4 @@ init.sh
 !/src/http/
 !/src/https/
 !*.example
+*.log

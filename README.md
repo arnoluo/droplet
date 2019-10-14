@@ -8,9 +8,10 @@ droplet/
 |    |- nginx/
 |    |...
 |
-|- env/                    # Custom images and all services` logs.
-|    |- image/
-|    |- log/
+|- env/                    # Custom services` data, images and logs.
+|    |- data/
+|    |- images/
+|    |- logs/
 |
 |- etc/
 |    |- other-compose.yml  # Other environment startup files, following docker-compose syntax.
@@ -29,3 +30,4 @@ droplet/
 ## Replace conf file
 - /config/redis/redis.conf.example -> /config/redis/redis.conf
 - /init.sh.example -> /init.sh
+- /config/nginx/server/http.conf.example -> /config/nginx/server/http.conf
