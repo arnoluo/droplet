@@ -25,9 +25,9 @@ services:
       - "9000"
     volumes:
       - ./src/:/var/www/:rw
-      - ./config/php/php.ini:/etc/php/php.ini:rw
-      - ./config/php/php-fpm.d/:/etc/php-fpm.d/:rw
-      - ./env/logs/php-fpm/:/var/log/php-fpm/:rw
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini:rw
+      - ./config/php/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ./env/logs/php-fpm/:/usr/local/var/log/php-fpm/:rw
     networks:
       - parse
       - data

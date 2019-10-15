@@ -4,10 +4,10 @@ WORKDIR /var/www
 
 # Packages
 RUN apk add --no-cache \
-    gcc g++ make wget unzip curl git \
+    gcc g++ make wget unzip curl git vim \
     aspell-dev \
     autoconf \
-    zlib-dev \
+    zlib-dev libzip-dev \
     subversion \
     freetype-dev \
     libjpeg-turbo-dev \
@@ -34,10 +34,11 @@ RUN apk add --no-cache \
 
     # docker-php-ext-configure
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure zip --with-libzip \
 
     # docker-php-ext-install
     && docker-php-ext-install \
-        zip pdo_pgsql pgsql pdo_mysql mysqli opcache sockets mbstring json xmlrpc \
+        zip pdo_pgsql pgsql pdo_mysql mysqli opcache sockets mbstring \
         bcmath pcntl xsl pspell bz2 gd \
 
     # docker-php-ext-enable
