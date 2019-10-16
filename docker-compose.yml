@@ -33,6 +33,8 @@ services:
       - data
     environment:
       - REDIS_PORT=6379
+      - COMPOSER_ALLOW_SUPERUSER=1
+      - COMPOSER_NO_INTERACTION=1
 
   postgres:
     image: postgres:alpine
