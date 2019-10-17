@@ -15,14 +15,12 @@ RUN apk add --no-cache --virtual .build-deps \
 RUN apk add --no-cache \
     # common tools
     git vim \
-    # zip pspell bz2 modules
-    libzip-dev aspell-dev bzip2-dev \
+    # zip bz2 pgsql modules
+    libzip-dev bzip2-dev postgresql-dev \
     # gd
     freetype-dev libjpeg-turbo-dev libpng-dev \
     # imagick redis yaml packages
     imagemagick-dev hiredis-dev yaml-dev \
-    # pgsql
-    postgresql-dev \
 
     # Pecl packages
     && pecl install imagick \
@@ -36,9 +34,9 @@ RUN apk add --no-cache \
 
     # docker-php-ext-install
     && docker-php-ext-install \
-        pdo_pgsql pgsql pdo_mysql mysqli \
-        zip sockets bcmath pspell bz2 gd \
-        pcntl opcache \
+        zip sockets bcmath bz2 gd pcntl opcache \
+        # pdo_mysql mysqli \
+        pdo_pgsql pgsql \
 
     # docker-php-ext-enable
     && docker-php-ext-enable opcache imagick redis xdebug yaml
