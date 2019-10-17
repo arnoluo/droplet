@@ -2,14 +2,20 @@ FROM php:7.2-fpm-alpine
 
 WORKDIR /var/www
 
-# Packages
+######## Modules Already included in this image:
+# Core ctype curl date dom fileinfo filter ftp hash iconv json
+# libxml mbstring mysqlnd openssl pcre PDO pdo_sqlite Phar posix
+# readline Reflection session SimpleXML sodium SPL sqlite3
+# standard tokenizer xml xmlreader xmlwriter zlib 
+####################################################
+
 RUN apk update && apk add --no-cache \
     # common tools
     gcc g++ make wget unzip git vim \
     # for ext php modules
     autoconf libtool \
-    # curl zlib zip pspell openssl bz2 modules
-    curl-dev zlib-dev libzip-dev aspell-dev openssl-dev bzip2-dev \
+    # zip pspell bz2 modules
+    libzip-dev aspell-dev bzip2-dev \
     # gd
     freetype-dev libjpeg-turbo-dev libpng-dev \
     # imagick redis yaml packages
@@ -29,10 +35,9 @@ RUN apk update && apk add --no-cache \
 
     # docker-php-ext-install
     && docker-php-ext-install \
-        pgsql pdo_mysql mysqli \
-        curl zip sockets mbstring \
-        bcmath pspell bz2 gd \
-        pcntl openssl opcache\
+        pdo_pgsql pgsql pdo_mysql mysqli \
+        zip sockets bcmath pspell bz2 gd \
+        pcntl opcache \
 
     # docker-php-ext-enable
     && docker-php-ext-enable opcache imagick redis xdebug yaml \
