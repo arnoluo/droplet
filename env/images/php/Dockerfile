@@ -9,11 +9,12 @@ WORKDIR /var/www
 # standard tokenizer xml xmlreader xmlwriter zlib 
 ####################################################
 
-RUN apk update && apk add --no-cache \
+RUN apk add --no-cache --virtual .build-deps \
+    gcc g++ make unzip autoconf libtool
+
+RUN apk add --no-cache \
     # common tools
-    gcc g++ make wget unzip git vim \
-    # for ext php modules
-    autoconf libtool \
+    git vim \
     # zip pspell bz2 modules
     libzip-dev aspell-dev bzip2-dev \
     # gd
@@ -40,8 +41,9 @@ RUN apk update && apk add --no-cache \
         pcntl opcache \
 
     # docker-php-ext-enable
-    && docker-php-ext-enable opcache imagick redis xdebug yaml \
-    && rm -rf /tmp/pear
+    && docker-php-ext-enable opcache imagick redis xdebug yaml
+
+RUN apk del .build-deps
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
